@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h2 th:text="${article.id} != null ? 'Modifier un article' : 'Créer un article'"></h2>
+
+<form th:object="${article}"
+      th:action="${article.id} != null ? @{/article/update/{id}(id=${article.id})} : @{/article/add}"
+      method="post">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    <label for="titre">Titre :</label>
+    <input type="text" id="titre" th:field="*{titre}" required>
+
+    <label for="auteur">Auteur :</label>
+    <input type="text" id="auteur" th:field="*{auteur}" required>
+
+    <label for="contenu">Contenu :</label>
+    <textarea id="contenu" rows="5" th:field="*{contenu}" required></textarea>
+
+    <button type="submit">Enregistrer</button>
+    <a href="/">Annuler</a>
+
+</form>
+
+</body>
+</html>

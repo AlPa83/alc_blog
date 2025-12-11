@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des articles</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>Liste des articles</h1>
+
+<!-- Formulaire de recherche -->
+<form th:action="@{/}" method="get">
+    <input type="text" name="auteur" placeholder="Rechercher par auteur..."
+           th:value="${auteur}">
+    <button type="submit">Rechercher</button>
+</form>
+
+<br>
+
+<a th:href="@{/article/new}">
+    <button>Créer un article</button>
+</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="article : ${articles}">
+        <td th:text="${article.id}"></td>
+        <td th:text="${article.titre}"></td>
+        <td th:text="${article.auteur}"></td>
+        <td>
+            <a th:href="@{/article/{id}(id=${article.id})}">Détails</a> |
+            <a th:href="@{/article/edit/{id}(id=${article.id})}">Modifier</a> |
+            <a th:href="@{/article/delete/{id}(id=${article.id})}">Supprimer</a>
+        </td>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(articles)}">
+        <td colspan="4">Aucun article trouvé.</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

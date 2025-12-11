@@ -1,0 +1,166 @@
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background-color: #f8f8f8;
+    color: #111;
+    margin: 0;
+    padding: 40px;
+}
+
+h1, h2, h3 {
+    color: #E90606;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    border-bottom: 4px solid #E90606;
+    padding-bottom: 8px;
+    font-size: 40px;
+}
+
+h2 {
+    border-bottom: 2px solid #E90606;
+    padding-bottom: 5px;
+}
+
+a {
+    color: #E90606;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button, .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-red, button[type="submit"] {
+    background-color: #E90606;
+    color: white;
+}
+
+.btn-red:hover {
+    background-color: #b10404;
+}
+
+.btn-black {
+    background-color: #111;
+    color: white;
+}
+
+.btn-black:hover {
+    background-color: #444;
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: 2px solid #E90606;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 260px;
+    background-color: white;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #b10404;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+thead th {
+    background-color: #E90606;
+    color: white;
+    padding: 12px;
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+}
+
+tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+td[colspan] {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+.article-detail {
+    background: white;
+    padding: 30px;
+    border-left: 5px solid #E90606;
+}
+
+.article-detail .meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.article-detail p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.actions {
+    margin-top: 25px;
+}
+
+.actions a {
+    margin-right: 15px;
+}
+
+form .form-group {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    font-family: inherit;
+    border: 2px solid #E90606;
+    border-radius: 3px;
+    background-color: white;
+}
+
+textarea {
+    resize: none;
+    height: 180px;
+}
+
+form button {
+    margin-top: 10px;
+}
