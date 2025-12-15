@@ -24,12 +24,13 @@
 
 <br><br>
 
-<table border="1">
+<table>
     <thead>
     <tr>
         <th>ID</th>
         <th>Titre</th>
         <th>Auteur</th>
+        <th>Date de création</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -39,6 +40,11 @@
         <td th:text="${article.id}"></td>
         <td th:text="${article.titre}"></td>
         <td th:text="${article.auteur}"></td>
+
+        <!-- Colonne Date -->
+        <td th:text="${#temporals.format(article.dateCreation, 'dd/MM/yyyy HH:mm')}">
+        </td>
+
         <td>
             <a th:href="@{/article/{id}(id=${article.id})}">Détails</a> |
             <a th:href="@{/article/edit/{id}(id=${article.id})}">Modifier</a> |
@@ -47,7 +53,7 @@
     </tr>
 
     <tr th:if="${#lists.isEmpty(articles)}">
-        <td colspan="4">Aucun article trouvé.</td>
+        <td colspan="5">Aucun article trouvé.</td>
     </tr>
     </tbody>
 </table>

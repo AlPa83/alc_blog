@@ -1,62 +1,69 @@
 package com.blog.alc.service;
 
 import com.blog.alc.model.Article;
+import com.blog.alc.repository.ArticleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ArticleService {
 
-    private final List<Article> articles = new ArrayList<>();
-    private long nextId = 1;
+    private final ArticleRepository repository;
 
+    public ArticleService(ArticleRepository repository) {
+        this.repository = repository;
+    }
 
+    //  Récupère tous les articles
     public List<Article> getAll() {
-
-        if (articles.isEmpty()) {
-            articles.add(new Article(nextId++, "Premier article", "Alice", "Contenu du premier article."));
-            articles.add(new Article(nextId++, "Actualité", "Bob", "Aujourd’hui on parle de Spring Boot."));
-            articles.add(new Article(nextId++, "Annonce", "Admin", "Voici un message important."));
-        }
-
-        return articles;
+        return repository.findAll();
     }
 
+    //  Récupère une page d'articles (pour pagination: 100 par page)
+    public Page<Article> getPage(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
+    }
+
+    //  Trouver par ID
     public Article getById(Long id) {
-        return articles.stream()
-                .filter(a -> a.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return repository.findById(id).orElse(null);
     }
 
-    public void add(Article article) {
-        article.setId(nextId++);
-        articles.add(article);
+    //  Ajouter un article
+    public Article add(Article article) {
+        return repository.save(article);
     }
 
+    //  Supprimer
     public boolean delete(Long id) {
-        return articles.removeIf(a -> a.getId().equals(id));
-    }
-
-    public boolean update(Long id, Article updated) {
-        Article existing = getById(id);
-        if (existing == null) return false;
-
-        existing.setTitre(updated.getTitre());
-        existing.setAuteur(updated.getAuteur());
-        existing.setContenu(updated.getContenu());
-
+        if (!repository.existsById(id)) return false;
+        repository.deleteById(id);
         return true;
     }
 
-    public int count() {
-        return articles.size();
+    //  Mettre à jour
+    public Article update(Long id, Article updated) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setTitre(updated.getTitre());
+                    existing.setAuteur(updated.getAuteur());
+                    existing.setContenu(updated.getContenu());
+                    return repository.save(existing);
+                })
+                .orElse(null);
     }
 
+    //  Compter
+    public long count() {
+        return repository.count();
+    }
+
+    //  Recherche simple par auteur
     public List<Article> searchByAuteur(String auteur) {
-        return articles.stream()
+        return repository.findAll().stream()
                 .filter(a -> a.getAuteur().toLowerCase().contains(auteur.toLowerCase()))
                 .toList();
     }

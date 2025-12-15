@@ -1,9 +1,7 @@
 package com.blog.alc.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Article {
@@ -16,6 +14,9 @@ public class Article {
     private String auteur;
     private String contenu;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime dateCreation;
+
     public Article() {}
 
     public Article(Long id, String titre, String auteur, String contenu) {
@@ -24,6 +25,13 @@ public class Article {
         this.auteur = auteur;
         this.contenu = contenu;
     }
+
+    @PrePersist
+    protected void onCreate() {
+        this.dateCreation = LocalDateTime.now();
+    }
+
+    // --- Getters & Setters ---
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -36,4 +44,7 @@ public class Article {
 
     public String getContenu() { return contenu; }
     public void setContenu(String contenu) { this.contenu = contenu; }
+
+    public LocalDateTime getDateCreation() { return dateCreation; }
+    public void setDateCreation(LocalDateTime dateCreation) { this.dateCreation = dateCreation; }
 }
